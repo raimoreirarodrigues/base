@@ -35,3 +35,7 @@
 >    Etapa 07 - Rode o comando abaixo para gerar uma key 
     
      php artisan key:generate
+
+>    Etapa 08 - Rode o comando abaixo para gerar as chaves de acesso da API via Passport 
+    
+     php artisan passport:install

@@ -6,11 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Support\Str;
-use Laravel\Sanctum\NewAccessToken;
 use OwenIt\Auditing\Contracts\Auditable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements Auditable
 {
@@ -25,7 +23,7 @@ class User extends Authenticatable implements Auditable
 
     protected array $guard_name = ['web','api'];
 
-    protected $fillable = ['name','email','active'];
+    protected $fillable = ['name','email','password','active'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,13 +39,13 @@ class User extends Authenticatable implements Auditable
      */
     protected $casts = ['email_verified_at' => 'datetime'];
 
-    public function createToken(string $name, array $abilities = ['*']){
-        $token = $this->tokens()->create([
-            'name' => $name,
-            'token' => hash('sha256', $plainTextToken = Str::random(256)),
-            'abilities' => $abilities,
-        ]);
+    // public function createToken(string $name, array $abilities = ['*']){
+    //     $token = $this->tokens()->create([
+    //         'name' => $name,
+    //         'token' => hash('sha256', $plainTextToken = Str::random(256)),
+    //         'abilities' => $abilities,
+    //     ]);
 
-        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
-    }
+    //     return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
+    // }
 }
